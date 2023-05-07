@@ -13,7 +13,7 @@ prepare_react_native_project!
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
-flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
+# flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
@@ -27,18 +27,33 @@ target 'ReactNativeApp' do
   # Flags change depending on the env values.
   flags = get_default_flags()
 
+  # Convert all permission pods into static libraries
+  pre_install do |installer|
+    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+
+    installer.pod_targets.each do |pod|
+      if pod.name.eql?('RNPermissions') || pod.name.start_with?('Permission-')
+        def pod.build_type;
+          # Uncomment the line corresponding to your CocoaPods version
+          Pod::BuildType.static_library # >= 1.9
+          # Pod::Target::BuildType.static_library # < 1.9
+        end
+      end
+    end
+  end
+
   use_react_native!(
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
     # Upcoming versions of React Native may rely on get_default_flags(), but
     # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => flags[:hermes_enabled],
+    :hermes_enabled => false,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    # :flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -47,6 +62,13 @@ target 'ReactNativeApp' do
     inherit! :complete
     # Pods for testing
   end
+
+  # Add permissions needed here...
+  # react-native-permissions permission handlers
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
   post_install do |installer|
     react_native_post_install(
