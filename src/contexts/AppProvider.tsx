@@ -24,6 +24,7 @@ const AppProvider: React.FC<IAppProvider> = ({navRef, children}) => {
       value={{
         navRef,
         colors: Colors[mode],
+        setMode,
       }}>
       {children}
     </AppContext.Provider>

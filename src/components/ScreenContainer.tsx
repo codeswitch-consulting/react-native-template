@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -10,8 +10,6 @@ import {
   Platform,
 } from 'react-native';
 import {useSafeAreaInsets, EdgeInsets} from 'react-native-safe-area-context';
-
-import {AppContext} from '@contexts/AppProvider';
 
 interface IScreenContainer {
   loading?: boolean;
