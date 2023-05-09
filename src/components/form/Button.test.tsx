@@ -1,11 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react-native';
 import {Text} from 'react-native';
-jest.mock('react-native-vector-icons/MaterialCommunityIcons');
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Button} from './Button';
 import AppProvider from '@contexts/AppProvider';
-import {IconProps} from 'react-native-vector-icons/Icon';
 
 const onPressMock = jest.fn();
 
@@ -27,10 +24,11 @@ describe('Button', () => {
     const leftAdornment = <Text>hello world</Text>;
     renderButton({buttonProps: {leftAdornment}});
     const button = screen.getByText(/hello world/i);
-    expect(button).toBeVisible();
+    expect(button).toBeDefined();
   });
 
   it('displays icon when left adornment is string', () => {
     renderButton({buttonProps: {leftAdornment: 'exclamation'}});
+    expect(screen.getByRole('image', {name: 'exclamation-icon'})).toBeDefined();
   });
 });

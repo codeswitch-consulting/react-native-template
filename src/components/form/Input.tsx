@@ -40,14 +40,12 @@ export type IInputField = {
 export const Input: React.FC<IInputField> = ({
   variant = 'primary',
   label,
-  labelHint,
   leftAdornment: LeftAdornmentComponent,
   rightButton: RightButton,
   onHintPress,
   secure = false,
   errors = [],
   required = false,
-  disabled = false,
   styles: customStyle = {},
   ...textFieldProps
 }) => {

@@ -1,8 +1,7 @@
-import React, {useContext, useRef} from 'react';
+import React, {useRef} from 'react';
 import {StyleSheet, View, StyleProp, ViewStyle, TextStyle} from 'react-native';
 import CheckBoxBase, {CheckBoxProps} from '@react-native-community/checkbox';
 
-import {AppContext} from '@contexts/AppProvider';
 import {Fonts, Variant} from '@components/design';
 
 export type CheckboxParams = {
@@ -27,7 +26,8 @@ export const CheckBox: React.FC<CheckboxParams> = ({
   const ref = useRef<CheckBoxBase>(null);
 
   function _onCheck(value: boolean) {
-    checkBoxProps.onValueChange && checkBoxProps.onValueChange(value);
+    console.log('\n\n\n\n\n\nHERE\n\n\n\n\n\n\n\n\n');
+    checkBoxProps?.onValueChange?.(value);
   }
 
   return (
@@ -35,6 +35,8 @@ export const CheckBox: React.FC<CheckboxParams> = ({
       style={[styles.container, checkBoxProps.style, customStyles.container]}>
       {label && labelSide === 'left' && (
         <Fonts
+          accessibilityRole="text"
+          accessibilityLabel={`${label}-left-label`}
           variant="body-medium"
           size={16}
           style={[styles.label, customStyles.label]}>
@@ -42,6 +44,8 @@ export const CheckBox: React.FC<CheckboxParams> = ({
         </Fonts>
       )}
       <CheckBoxBase
+        accessibilityRole="checkbox"
+        accessibilityLabel={`${label}-checkbox`}
         ref={ref}
         disabled={false}
         boxType="square"
@@ -51,6 +55,8 @@ export const CheckBox: React.FC<CheckboxParams> = ({
       />
       {label && labelSide === 'right' && (
         <Fonts
+          accessibilityRole="text"
+          accessibilityLabel={`${label}-right-label`}
           variant="body-medium"
           size={16}
           style={[styles.label, customStyles.label]}>

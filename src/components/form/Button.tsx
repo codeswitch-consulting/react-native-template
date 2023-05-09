@@ -55,6 +55,8 @@ export const Button: React.FC<ButtonProps> = ({
       ]}>
       {LeftAdornment && typeof LeftAdornment === 'string' && (
         <Icon
+          accessibilityRole="image"
+          accessibilityLabel={`${LeftAdornment}-icon`}
           name={LeftAdornment}
           size={12}
           color={colors.PRIMARY}
