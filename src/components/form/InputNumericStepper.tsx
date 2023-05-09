@@ -7,7 +7,7 @@ import {ThemeColorsProp} from '@components/design';
 import {Input} from './Input';
 
 interface IInputNumericStepper {
-  value?: number;
+  value: number;
   maxValue?: number;
   setValue: Dispatch<SetStateAction<number>>;
   styles?: {
@@ -16,7 +16,7 @@ interface IInputNumericStepper {
 }
 
 export const InputNumericStepper: React.FC<IInputNumericStepper> = ({
-  value = 1,
+  value,
   maxValue,
   setValue,
   styles: customStyles = {},
@@ -43,12 +43,16 @@ export const InputNumericStepper: React.FC<IInputNumericStepper> = ({
       />
       <View style={styles.steppers}>
         <Icon
+          accessibilityRole="image"
+          accessibilityLabel="input-numeric-stepper-up"
           name="chevron-up"
           size={20}
           onPress={_onIncrease}
           style={styles.up}
         />
         <Icon
+          accessibilityRole="image"
+          accessibilityLabel="input-numeric-stepper-down"
           name="chevron-down"
           size={20}
           onPress={_onDecrease}

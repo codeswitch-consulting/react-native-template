@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react-native';
-import {Text} from 'react-native';
 import {Input} from './Input';
+
 import AppProvider from '@contexts/AppProvider';
 
 const onChangeTextMock = jest.fn();

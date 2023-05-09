@@ -110,7 +110,7 @@ export const Input: React.FC<IInputField> = ({
           placeholderTextColor={colors.TEXT.DEFAULT}
           style={[variantStyle]}
           accessibilityRole="text"
-          accessibilityLabel={`${label}-text-input`}
+          accessibilityLabel={`${label || 'label'}-text-input`}
         />
         {secure && (
           <TouchableOpacity onPress={_toggleSecure} style={styles.secureIcon}>
