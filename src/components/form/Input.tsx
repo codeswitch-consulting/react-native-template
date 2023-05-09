@@ -60,7 +60,7 @@ export const Input: React.FC<IInputField> = ({
   const styles = getStyles(colors);
   const fieldHasErrors =
     errors.length > 0 && errors.some((error: string) => error !== '');
-  let variantStyle: (ViewStyle & TextStyle)[] = [
+  const variantStyle: (ViewStyle & TextStyle)[] = [
     styles.variantBase,
     styles[`variant${capitalize(variant) as CapitlizedVariant}`],
     fieldHasErrors ? styles.fieldError : {},
@@ -89,8 +89,7 @@ export const Input: React.FC<IInputField> = ({
               color={colors.ERROR}
               style={styles.label}
               {...customStyle.label}>
-              {' '}
-              *
+              {'  *'}
             </Fonts>
           )}
           {onHintPress && (
@@ -110,6 +109,8 @@ export const Input: React.FC<IInputField> = ({
           secureTextEntry={secureMode}
           placeholderTextColor={colors.TEXT.DEFAULT}
           style={[variantStyle]}
+          accessibilityRole="text"
+          accessibilityLabel={`${label}-text-input`}
         />
         {secure && (
           <TouchableOpacity onPress={_toggleSecure} style={styles.secureIcon}>
