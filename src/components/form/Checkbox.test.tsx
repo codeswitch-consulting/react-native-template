@@ -6,7 +6,7 @@ import AppProvider from '@contexts/AppProvider';
 
 const onPressMock = jest.fn();
 
-const renderButton = ({checkboxProps}: {checkboxProps?: any}) =>
+const renderComponent = ({checkboxProps}: {checkboxProps?: any}) =>
   render(
     <AppProvider navRef={undefined}>
       <CheckBox
@@ -18,13 +18,13 @@ const renderButton = ({checkboxProps}: {checkboxProps?: any}) =>
   );
 describe('CheckBox', () => {
   it('fires on press action when pressed', () => {
-    renderButton({});
+    renderComponent({});
     fireEvent(screen.getByRole(/checkbox/i), 'onValueChange');
     expect(screen.getByRole(/checkbox/i)).toBeDefined();
     expect(onPressMock).toHaveBeenCalled();
   });
   it('defaults to label being on the right', () => {
-    renderButton({});
+    renderComponent({});
     expect(screen.getByRole(/checkbox/i)).toBeDefined();
     expect(
       screen.getByRole('text', {name: 'checkbox-right-label'}),

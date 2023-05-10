@@ -9,6 +9,7 @@ import {Input} from './Input';
 interface IInputNumericStepper {
   value: number;
   maxValue?: number;
+  minValue?: number;
   setValue: Dispatch<SetStateAction<number>>;
   styles?: {
     container: StyleProp<ViewStyle>;
@@ -18,17 +19,20 @@ interface IInputNumericStepper {
 export const InputNumericStepper: React.FC<IInputNumericStepper> = ({
   value,
   maxValue,
+  minValue,
   setValue,
   styles: customStyles = {},
 }) => {
   const {colors} = useContext(AppContext);
 
   function _onIncrease() {
-    setValue(state => (maxValue ? Math.min(maxValue, +state + 1) : +state + 1));
+    if (!maxValue || (maxValue && value < maxValue)) {
+      setValue(value + 1);
+    }
   }
 
   function _onDecrease() {
-    setValue(state => Math.max(+state - 1, 0));
+    setValue(state => Math.max(+state - 1, minValue || 0));
   }
 
   const styles = getStyles(colors);

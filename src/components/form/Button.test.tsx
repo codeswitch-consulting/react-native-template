@@ -6,7 +6,7 @@ import AppProvider from '@contexts/AppProvider';
 
 const onPressMock = jest.fn();
 
-const renderButton = ({buttonProps}: {buttonProps?: any}) =>
+const renderComponent = ({buttonProps}: {buttonProps?: any}) =>
   render(
     <AppProvider navRef={undefined}>
       <Button label="button" onPress={onPressMock} {...buttonProps} />
@@ -14,7 +14,7 @@ const renderButton = ({buttonProps}: {buttonProps?: any}) =>
   );
 describe('Button', () => {
   it('fires on press action when pressed', () => {
-    renderButton({});
+    renderComponent({});
     const button = screen.getByText(/button/i);
     fireEvent.press(button);
     expect(onPressMock).toHaveBeenCalled();
@@ -22,13 +22,13 @@ describe('Button', () => {
 
   it('displays custom left adornment', () => {
     const leftAdornment = <Text>hello world</Text>;
-    renderButton({buttonProps: {leftAdornment}});
+    renderComponent({buttonProps: {leftAdornment}});
     const button = screen.getByText(/hello world/i);
     expect(button).toBeDefined();
   });
 
   it('displays icon when left adornment is string', () => {
-    renderButton({buttonProps: {leftAdornment: 'exclamation'}});
+    renderComponent({buttonProps: {leftAdornment: 'exclamation'}});
     expect(screen.getByRole('image', {name: 'exclamation-icon'})).toBeDefined();
   });
 });

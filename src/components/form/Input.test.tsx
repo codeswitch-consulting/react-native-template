@@ -5,7 +5,7 @@ import {Input} from './Input';
 import AppProvider from '@contexts/AppProvider';
 
 const onChangeTextMock = jest.fn();
-const renderButton = ({inputProps}: {inputProps?: any}) =>
+const renderComponent = ({inputProps}: {inputProps?: any}) =>
   render(
     <AppProvider navRef={undefined}>
       <Input label="input" onChangeText={onChangeTextMock} {...inputProps} />
@@ -13,7 +13,7 @@ const renderButton = ({inputProps}: {inputProps?: any}) =>
   );
 describe('Input', () => {
   it('changes value', () => {
-    renderButton({});
+    renderComponent({});
     fireEvent.changeText(screen.getByRole(/text/i), 'text');
     expect(screen.getByRole(/text/i, {name: 'input-text-input'})).toBeDefined();
     expect(onChangeTextMock).toHaveBeenCalled();
