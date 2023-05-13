@@ -26,7 +26,6 @@ export const CheckBox: React.FC<CheckboxParams> = ({
   const ref = useRef<CheckBoxBase>(null);
 
   function _onCheck(value: boolean) {
-    console.log('\n\n\n\n\n\nHERE\n\n\n\n\n\n\n\n\n');
     checkBoxProps?.onValueChange?.(value);
   }
 
