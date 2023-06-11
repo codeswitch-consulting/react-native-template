@@ -2,6 +2,7 @@ import React from 'react';
 import {NavigationContainerRefWithCurrent} from '@react-navigation/native';
 
 import AppProvider from './AppProvider';
+import {NativeBaseProvider} from 'native-base';
 
 interface IContextWrapper {
   navRef:
@@ -13,4 +14,8 @@ interface IContextWrapper {
 export const ContextWrapper: React.FC<IContextWrapper> = ({
   navRef,
   children,
-}) => <AppProvider navRef={navRef}>{children}</AppProvider>;
+}) => (
+  <NativeBaseProvider>
+    <AppProvider navRef={navRef}>{children}</AppProvider>
+  </NativeBaseProvider>
+);
