@@ -1,18 +1,17 @@
-/**
- * @format
- */
-
 import React from 'react';
-jest.mock('react-native-gesture-handler');
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import App from './App';
+import {render} from '@testing-library/react-native';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+jest.mock('react-native-gesture-handler', () => {
+  return {
+    GestureHandlerRootView: ({children}: {children: JSX.Element}) => (
+      <>{children}</>
+    ),
+  };
+});
 
-it('renders correctly', () => {
-  jest
-    .mocked(GestureHandlerRootView)
-    .mockImplementation(({children}) => <>{children}</>);
-  renderer.create(<App />);
+describe('App', () => {
+  it('renders correctly', () => {
+    render(<App />);
+  });
 });
