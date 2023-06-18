@@ -28,7 +28,7 @@ function App(): JSX.Element {
   }, [appState]);
 
   useEffect(() => {
-    navRef.addListener('state', e => {
+    navRef.addListener('state', () => {
       navRef.isReady() && setNavReady(true);
     });
   }, [navRef.current]);
