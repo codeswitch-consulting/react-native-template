@@ -1,0 +1,8 @@
+{
+    "name": "react-native-new-template",
+    "version": "0.0.1",
+    "description": "React Native Template",
+    "repository": "git@github.com:codeswicth-consulting/react-native-new-template.git",
+    "author": "Justin De Burgo <justin.deburgo.swe@gmail.com>",
+    "license": "MIT"
+  }
